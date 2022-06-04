@@ -2,6 +2,7 @@ const fileInput = document.getElementById('file-input')
 const brightness = document.getElementById('brightness')
 const contrast = document.getElementById('contrast')
 const transparent = document.getElementById('transparent')
+const saveButton = document.getElementById('save-button')
 
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
@@ -72,3 +73,14 @@ function change() {
     imageData.data = pixels
     ctx.putImageData(imageData, 0, 0)
 }
+
+saveButton.addEventListener('click', () => {
+    const imageCanvas = canvas.toDataURL()
+    const temporaryLink = document.createElement('a')
+
+    temporaryLink.download = 'result.png'
+    temporaryLink.href = imageCanvas
+    document.body.appendChild(temporaryLink)
+    temporaryLink.click()
+    document.body.removeChild(temporaryLink)
+})
